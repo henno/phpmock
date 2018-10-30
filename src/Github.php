@@ -14,13 +14,16 @@ class Github
         return 3;
     }
 
-    public static function userFollowsUser(string $follower, string $followee)
+    public static function userFollowsUser(string $follower, string $followee, HTTP $http)
     {
 
-        $followers = HTTP::get("https://api.github.com/users/$followee/followers");
+        $followers = $http->get("https://api.github.com/users/$followee/followers");
+
+
+        //die(var_dump($followers));
 
         foreach ($followers as $current_follower) {
-            if($current_follower['login'] == $follower){
+            if($current_follower->login == $follower){
                 return true;
             }
         }
